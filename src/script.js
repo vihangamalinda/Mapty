@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -19,6 +19,21 @@ if (navigator.geolocation) {
       const { longitude } = position.coords;
       const location = `https://www.google.com/maps/@${latitude},${longitude},15z?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D`;
       console.log(location);
+
+          const coords = [latitude, longitude];
+      const map = L.map('map').setView(coords, 17);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+ 
+      L.marker(coords)
+        .addTo(map)
+        .bindPopup("A pretty CSS popup.<br> Easily customizable.")
+        .openPopup();
+
+
     },
     (errorMsg) => {
       console.log(errorMsg);
