@@ -41,8 +41,6 @@ body {
   flex-direction: column;
 }
 
-
-
 .workouts {
   list-style: none;
   height: 77vh;
@@ -163,7 +161,7 @@ body {
 
 .form-info-container {
   flex: 3;
-  background-color: #00a7c4;
+  background-color: #c40083;
 }
 
 .form-info-confirmation {
@@ -181,13 +179,13 @@ body {
   /* f */
 }
 
-.poke-img-containter{
+.poke-img-containter {
   display: flex;
   justify-content: center;
   background-color: #00c46a;
 }
 
-.poke-img{
+.poke-img {
   max-height: 200px;
   max-width: 150px;
   padding: 5px;
@@ -201,45 +199,72 @@ body {
 }
 
 /* Pokemon selection related */
-.form-info-selector{
+.form-info-selector {
   display: flex;
   padding: 2px;
   justify-content: space-between;
 }
 
 .form-info-selector-label {
-  flex:1;
+  flex: 1;
   font-size: 1.5rem;
 }
-.form-info-selector-label-value{
-  flex:3
+.form-info-selector-label-value {
+  flex: 3;
 }
 
-.common-label-value{
+.common-label-value {
   padding: 10px;
 }
 
-.form-type-container{
+.form-type-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #3fdc71;
 }
 
-.form-identifier-container{
+.form-type-info {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #031725;
+}
+
+.form-type-label {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #1879be;
+}
+
+.form-identifier-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: #b09797;
 }
 
-.form-identifier-number{
-  padding-right:5px ;
+.form-identifier-number {
+  padding-right: 5px;
   font-size: 1.5rem;
+  background-color: #d63737;
 }
 
-.form-identifier-name{
-  padding-left:5px ;
+.form-identifier-name {
+  padding-left: 10px;
+  padding-right: 10px;
   font-weight: bolder;
   font-size: 1.5rem;
-  
-  
+  background-color: #312e2e;
+}
+
+.form-detail-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-detail-label-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #1400c4;
 }
