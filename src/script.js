@@ -1,4 +1,6 @@
-// "use strict";
+"use strict";
+
+import { pokemonDataMap } from "./pokemon-data.js";
 
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -10,6 +12,8 @@ const inputDistance = document.querySelector(".form__input--distance");
 const inputDuration = document.querySelector(".form__input--duration");
 const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
+
+const formInput = document.querySelector(".form-info-selector-label-value");
 
 const popupContent = "Vihanga";
 
@@ -68,3 +72,10 @@ function getPopupObj() {
     className: "running-popup",
   });
 }
+
+formInput.addEventListener("change", (event) => {
+  console.log(event);
+  console.log(formInput.value);
+  const pokemonData = pokemonDataMap.get(formInput.value);
+  console.log(pokemonData);
+});
