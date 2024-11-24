@@ -5,7 +5,7 @@ class Pokemon {
     this.pokemonName = pokemonName;
     this.type = type;
     this.info = info;
-    this.imgPath = `${POKEMON_PATH}/${id}`;
+    this.imgPath = `${POKEMON_PATH}/${id}.png`;
   }
 }
 
