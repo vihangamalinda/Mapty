@@ -14,8 +14,27 @@ const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
 const formInput = document.querySelector(".form-info-selector-label-value");
+const formPokeName = document.querySelector(".form-identifier-name");
+const formPokeIdentifier = document.querySelector(".form-identifier-number");
+const formPokemonImage = document.querySelector(".poke-img");
+const formPokeType = document.querySelector(".form-type-info");
+const formPokeDetails = document.querySelector(".form-detail-infor");
 
 const popupContent = "Vihanga";
+
+const getOption = (pokeIndex, pokemonName) => {
+  let option = document.createElement("option");
+  option.value = pokeIndex;
+  option.text = pokemonName;
+  return option;
+};
+
+const setUpDropDownOptions = () => {
+  pokemonDataMap.forEach((pokemon, pokeIndex) =>
+    formInput.appendChild(getOption(pokeIndex, pokemon.pokemonName))
+  );
+};
+setUpDropDownOptions();
 
 const getMarker = (cordinates, bindingingEl) =>
   L.marker(cordinates)
@@ -73,9 +92,19 @@ function getPopupObj() {
   });
 }
 
+// formInput.appendChild(getOption("999","Vihanga"))
+
 formInput.addEventListener("change", (event) => {
   console.log(event);
   console.log(formInput.value);
   const pokemonData = pokemonDataMap.get(formInput.value);
+
+  console.log(pokemonData.type);
+
+  formPokeIdentifier.textContent = `#${pokemonData.id}`;
+  formPokeName.textContent = `${pokemonData.pokemonName}`;
+  formPokemonImage.src = pokemonData.imgPath;
+  formPokeType.innerHTML = `<div>${pokemonData.type}</div>`;
+  formPokeDetails.innerHTML = `<div>${pokemonData.info}</div>`;
   console.log(pokemonData);
 });
