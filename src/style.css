@@ -41,11 +41,7 @@ body {
   flex-direction: column;
 }
 
-.logo {
-  height: 16rem;
-  align-self: center;
-  margin-bottom: 4rem;
-}
+
 
 .workouts {
   list-style: none;
@@ -183,4 +179,42 @@ body {
 
 .form-btn {
   /* f */
+}
+
+.poke-img-containter{
+  display: flex;
+  justify-content: center;
+  background-color: #00c46a;
+}
+
+.poke-img{
+  max-height: 200px;
+  max-width: 150px;
+  padding: 5px;
+  background-color: #2a00c4;
+}
+
+.logo-img {
+  height: 4rem;
+  align-self: center;
+  margin-bottom: 4rem;
+}
+
+/* Pokemon selection related */
+.form-info-selector{
+  display: flex;
+  padding: 2px;
+  justify-content: space-between;
+}
+
+.form-info-selector-label {
+  flex:1;
+  font-size: 1.5rem;
+}
+.form-info-selector-label-value{
+  flex:3
+}
+
+.common-label-value{
+  padding: 10px;
 }
