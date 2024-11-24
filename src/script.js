@@ -46,8 +46,9 @@ if (navigator.geolocation) {
       map.on("click", (mapEvent) => {
         console.log(mapEvent);
         const { lat, lng } = mapEvent.latlng;
-        const slector = "";
-        getMarker([lat, lng], map);
+        form.classList.remove("hidden");
+
+        // getMarker([lat, lng], map);
       });
     },
     (errorMsg) => {
