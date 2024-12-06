@@ -1,8 +1,8 @@
 "use strict";
 
-import { pokemonDataMap } from "./pokemon-data.js";
+import {pokemonDataMap} from "./pokemon-data.js";
 
-// prettier-ignore
+
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const form = document.querySelector(".form");
@@ -22,89 +22,131 @@ const formPokeDetails = document.querySelector(".form-detail-infor");
 
 const popupContent = "Vihanga";
 
+class App {
+    #map;
+    #mapEvent;
+
+    constructor() {
+        this._getPosition();
+        formInput.addEventListener("change", this._listenFormInput.bind(this));
+        form.addEventListener("submit", this._newFoundInformation.bind(this));
+
+
+    }
+
+    _getPosition() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this._loadMap.bind(this),
+                (errorMsg) => {
+                    console.log(errorMsg);
+                    alert("Could not get your location");
+                }
+            );
+        }
+    };
+
+    _loadMap(position) {
+        console.log(position);
+        const {latitude} = position.coords;
+        const {longitude} = position.coords;
+        const location = `https://www.google.com/maps/@${latitude},${longitude},15z?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D`;
+        console.log(location);
+        console.log(this);
+        const coords = [latitude, longitude];
+        this.#map = L.map("map").setView(coords, 18);
+
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(this.#map);
+
+        // L.marker(coords)
+        //     .addTo(this.#map)
+        //     .bindPopup("A pretty CSS popup.<br> Easily customizable.")
+        //     .openPopup();
+
+        // console.dir(map)
+        //   Handling clicks on map
+        this.#map.on("click", this._showForm.bind(this));
+
+    }
+
+    _showForm(mapE) {
+        this.#mapEvent = mapE;
+        // console.log(mapE);
+        // const { lat, lng } = mapE.latlng;
+        // form.classList.toggle("hidden");
+        this._toggleForm();
+    }
+
+    _toggleForm() {
+        form.classList.toggle("hidden");
+    }
+
+    _toggleElevationField() {
+
+    }
+
+    _listenFormInput(e) {
+        console.log(e);
+        console.log(formInput.value);
+        const pokemonData = pokemonDataMap.get(formInput.value);
+
+        console.log(pokemonData.type);
+
+        formPokeIdentifier.textContent = `#${pokemonData.id}`;
+        formPokeName.textContent = `${pokemonData.pokemonName}`;
+        formPokemonImage.src = pokemonData.imgPath;
+        formPokeType.innerHTML = `<div>${pokemonData.type}</div>`;
+        formPokeDetails.innerHTML = `<div>${pokemonData.info}</div>`;
+        console.log(pokemonData);
+    }
+
+    _newFoundInformation(e) {
+        e.preventDefault();
+        console.log(this.#mapEvent);
+        const {lat, lng} = this.#mapEvent.latlng;
+        // form.classList.remove("hidden");
+
+        getMarker([lat, lng], this.#map);
+        this._toggleForm();
+    }
+}
+
 const getOption = (pokeIndex, pokemonName) => {
-  let option = document.createElement("option");
-  option.value = pokeIndex;
-  option.text = pokemonName;
-  return option;
+    let option = document.createElement("option");
+    option.value = pokeIndex;
+    option.text = pokemonName;
+    return option;
 };
 
 const setUpDropDownOptions = () => {
-  pokemonDataMap.forEach((pokemon, pokeIndex) =>
-    formInput.appendChild(getOption(pokeIndex, pokemon.pokemonName))
-  );
+    pokemonDataMap.forEach((pokemon, pokeIndex) =>
+        formInput.appendChild(getOption(pokeIndex, pokemon.pokemonName))
+    );
 };
 setUpDropDownOptions();
 
-const getMarker = (cordinates, bindingingEl) =>
-  L.marker(cordinates)
-    .addTo(bindingingEl)
-    .bindPopup(getPopupObj())
-    .setPopupContent(popupContent)
-    .openPopup();
-
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      console.log(position);
-      const { latitude } = position.coords;
-      const { longitude } = position.coords;
-      const location = `https://www.google.com/maps/@${latitude},${longitude},15z?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D`;
-      console.log(location);
-
-      const coords = [latitude, longitude];
-      const map = L.map("map").setView(coords, 18);
-
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-
-      L.marker(coords)
-        .addTo(map)
-        .bindPopup("A pretty CSS popup.<br> Easily customizable.")
+const getMarker = (coordinates, bindingingEl) =>
+    L.marker(coordinates)
+        .addTo(bindingingEl)
+        .bindPopup(getPopupObj())
+        .setPopupContent(popupContent)
         .openPopup();
 
-      // console.dir(map)
-      map.on("click", (mapEvent) => {
-        console.log(mapEvent);
-        const { lat, lng } = mapEvent.latlng;
-        form.classList.remove("hidden");
-
-        // getMarker([lat, lng], map);
-      });
-    },
-    (errorMsg) => {
-      console.log(errorMsg);
-      alert("Could not get your location");
-    }
-  );
-}
 
 function getPopupObj() {
-  return L.popup({
-    maxWidth: 500,
-    minWidth: 300,
-    autoclose: false,
-    maxHeight: 800,
-    closeOnClick: false,
-    className: "running-popup",
-  });
+    return L.popup({
+        maxWidth: 500,
+        minWidth: 300,
+        autoclose: false,
+        maxHeight: 800,
+        closeOnClick: false,
+        className: "running-popup",
+    });
 }
 
+new App();
 // formInput.appendChild(getOption("999","Vihanga"))
 
-formInput.addEventListener("change", (event) => {
-  console.log(event);
-  console.log(formInput.value);
-  const pokemonData = pokemonDataMap.get(formInput.value);
 
-  console.log(pokemonData.type);
-
-  formPokeIdentifier.textContent = `#${pokemonData.id}`;
-  formPokeName.textContent = `${pokemonData.pokemonName}`;
-  formPokemonImage.src = pokemonData.imgPath;
-  formPokeType.innerHTML = `<div>${pokemonData.type}</div>`;
-  formPokeDetails.innerHTML = `<div>${pokemonData.info}</div>`;
-  console.log(pokemonData);
-});
