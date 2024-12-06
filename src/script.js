@@ -22,6 +22,28 @@ const formPokeDetails = document.querySelector(".form-detail-infor");
 
 const popupContent = "Vihanga";
 
+class PokemonLocator {
+    date = new Date();
+    id = (new Date().getUTCMilliseconds() + "").slice(-10);
+
+    constructor(coordinates, pokeIndex) {
+        this.coordinates = coordinates;
+        console.log(pokeIndex);
+        this.pokeIndex = pokeIndex;
+    }
+
+    getPokemonDetails() {
+        let pokeDetails;
+        if (pokemonDataMap.has(this.pokeIndex)) {
+            pokeDetails = pokemonDataMap.get(this.pokeIndex)
+        } else {
+            console.log("Unknown Pokemon");
+            pokeDetails = '';
+        }
+        return pokeDetails;
+    }
+}
+
 class App {
     #map;
     #mapEvent;
@@ -30,8 +52,6 @@ class App {
         this._getPosition();
         formInput.addEventListener("change", this._listenFormInput.bind(this));
         form.addEventListener("submit", this._newFoundInformation.bind(this));
-
-
     }
 
     _getPosition() {
