@@ -2,11 +2,19 @@
   --color-brand--1: #ffb545;
   --color-brand--2: #00c46a;
 
+  --color-type-grass: #04af67;
+  --color-type-fire: #c50a39;
+  --color-type-water: #1323cd;
+  --color-type-ghost: #42289f;
+  --color-type-electric: #b6b418;
+
   --color-dark--1: #2d3439;
   --color-dark--2: #42484d;
   --color-light--1: #aaa;
   --color-light--2: #ececec;
   --color-light--3: rgb(214, 222, 224);
+
+
 }
 
 * {
@@ -267,4 +275,25 @@ body {
   flex-direction: row;
   justify-content: center;
   background-color: #1400c4;
+}
+
+/*Pokemon type base colours*/
+.type-grass-popup .leaflet-popup-content-wrapper {
+  border-left: 30px solid var(--color-type-grass);
+}
+
+.type-fire-popup .leaflet-popup-content-wrapper {
+  border-left: 30px solid var(--color-type-fire);
+}
+
+.type-water-popup .leaflet-popup-content-wrapper {
+  border-left: 30px solid var(--color-type-water);
+}
+
+.type-ghost-popup .leaflet-popup-content-wrapper {
+  border-left: 30px solid var(--color-type-ghost);
+}
+
+.type-electric-popup .leaflet-popup-content-wrapper {
+  border-left: 30px solid var(--color-type-electric);
 }

@@ -27,7 +27,7 @@ class PokemonLocator {
     id = (new Date().getUTCMilliseconds() + "").slice(-10);
 
     constructor(coordinates, pokeIndex) {
-        this.coordinates = coordinates;
+        this.coordinates = coordinates; //[lat,lng]
         console.log(pokeIndex);
         this.pokeIndex = pokeIndex;
     }
@@ -47,6 +47,7 @@ class PokemonLocator {
 class App {
     #map;
     #mapEvent;
+    #pokemonLocations = [];
 
     constructor() {
         this._getPosition();
@@ -128,7 +129,20 @@ class App {
         const {lat, lng} = this.#mapEvent.latlng;
         // form.classList.remove("hidden");
 
-        getMarker([lat, lng], this.#map);
+        // Get form data
+        const inputValue = formInput.value;
+        if (inputValue === undefined) {
+            alert("Please Select a Pokemon that you saw");
+        }
+        console.log("formInput.value", inputValue);
+        const selectedPokemonData = pokemonDataMap.get(inputValue);
+        console.log("selectedPokemonData");
+        console.log(selectedPokemonData);
+
+        const pokemonLocation = new PokemonLocator([lat, lng], inputValue);
+        this.#pokemonLocations.push(pokemonLocation);
+
+        getMarker(pokemonLocation, this.#map, selectedPokemonData);
         this._toggleForm();
     }
 }
@@ -147,22 +161,23 @@ const setUpDropDownOptions = () => {
 };
 setUpDropDownOptions();
 
-const getMarker = (coordinates, bindingingEl) =>
-    L.marker(coordinates)
+const getMarker = (pokemonLocation, bindingingEl, pokemon) => {
+    const markerInfo = ` #${pokemon.id}  ${pokemon.pokemonName}`;
+    L.marker(pokemonLocation.coordinates)
         .addTo(bindingingEl)
-        .bindPopup(getPopupObj())
-        .setPopupContent(popupContent)
+        .bindPopup(getPopupObj(pokemon.type))
+        .setPopupContent(markerInfo)
         .openPopup();
+}
 
-
-function getPopupObj() {
+function getPopupObj(pokemonType) {
     return L.popup({
         maxWidth: 500,
         minWidth: 300,
         autoclose: false,
         maxHeight: 800,
         closeOnClick: false,
-        className: "running-popup",
+        className: `type-${pokemonType.toLowerCase()}-popup`,
     });
 }
 
