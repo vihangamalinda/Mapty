@@ -25,14 +25,23 @@ const popupContent = "Vihanga";
 class PokemonLocator {
     date = new Date();
     id = (new Date().getUTCMilliseconds() + "").slice(-10);
+    type;
+    pokemonDetails;
 
     constructor(coordinates, pokeIndex) {
         this.coordinates = coordinates; //[lat,lng]
         console.log(pokeIndex);
         this.pokeIndex = pokeIndex;
+        this.pokemonDetails = this._getPokemonDetails();
+        this.type = this._getPokemonType();
+
     }
 
-    getPokemonDetails() {
+    _getPokemonType() {
+        return this.pokemonDetails.type;
+    };
+
+    _getPokemonDetails() {
         let pokeDetails;
         if (pokemonDataMap.has(this.pokeIndex)) {
             pokeDetails = pokemonDataMap.get(this.pokeIndex)
@@ -143,7 +152,51 @@ class App {
         this.#pokemonLocations.push(pokemonLocation);
 
         getMarker(pokemonLocation, this.#map, selectedPokemonData);
+
+        // Render location data on left panel
+        this._renderPokemonLocation(pokemonLocation);
+        // Hiding the form before animation transition
+        form.style.display = "none";
         this._toggleForm();
+        // Bringing back the form after animation transition
+        setTimeout(() => form.style.display = "block", 1000);
+    }
+
+    _renderPokemonLocation(pokemonLocator) {
+        console.log(pokemonLocator.type);
+        const pokemonDetail = pokemonLocator.pokemonDetails;
+        console.log(pokemonDetail);
+        const [lat, lng] = pokemonLocator.coordinates;
+        const uptoFiveDecimal = (val) => val.toString().slice(0, 7);
+
+        const html = `
+        <li class="pokemon-data type-${pokemonLocator.type.toLowerCase()}-data" data-id="${pokemonLocator.id}">
+        <div class="data-box box-item">
+                   <div class="pokemon-name">${pokemonDetail.pokemonName}</div>
+                   <div class="details box-item">
+                        <span>pokedex Id:</span>
+                        <span>${pokemonDetail.id}</span>
+                   </div>
+                   <div class="locator box-item">
+                   <span>location</span>
+                   <span>{${uptoFiveDecimal(lat)},${uptoFiveDecimal(lng)}}</span>
+                   
+</div>
+        </div>           
+        </li>
+        `;
+        //                        <div class="workout__details">
+        //                               <span class="workout__icon">🏃‍♂️</span>
+        //                               <span class="workout__value">5.2</span>
+        //                               <span class="workout__unit">km</span>
+        //                             </div>
+        //                             <div class="workout__details">
+        //                               <span class="workout__icon">⏱</span>
+        //                               <span class="workout__value">24</span>
+        //                               <span class="workout__unit">min</span>
+        //                             </div>
+        const html2 = `<div>${pokemonLocator.type}</div>`
+        form.insertAdjacentHTML('afterend', html);
     }
 }
 

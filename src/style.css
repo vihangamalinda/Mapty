@@ -1,112 +1,114 @@
 :root {
-  --color-brand--1: #ffb545;
-  --color-brand--2: #00c46a;
+    --color-brand--1: #ffb545;
+    --color-brand--2: #00c46a;
 
-  --color-type-grass: #04af67;
-  --color-type-fire: #c50a39;
-  --color-type-water: #1323cd;
-  --color-type-ghost: #42289f;
-  --color-type-electric: #b6b418;
+    --color-type-grass: #04af67;
+    --color-type-fire: #c50a39;
+    --color-type-water: #1323cd;
+    --color-type-ghost: #42289f;
+    --color-type-electric: #b6b418;
 
-  --color-dark--1: #2d3439;
-  --color-dark--2: #42484d;
-  --color-light--1: #aaa;
-  --color-light--2: #ececec;
-  --color-light--3: rgb(214, 222, 224);
+    --color-dark--1: #2d3439;
+    --color-dark--2: #42484d;
+    --color-light--1: #aaa;
+    --color-light--2: #ececec;
+    --color-light--3: rgb(214, 222, 224);
 
 
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
 }
 
 html {
-  font-size: 62.5%;
-  box-sizing: border-box;
+    font-size: 62.5%;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: "Manrope", sans-serif;
-  color: var(--color-light--2);
-  font-weight: 400;
-  line-height: 1.6;
-  height: 100vh;
-  overscroll-behavior-y: none;
+    font-family: "Manrope", sans-serif;
+    color: var(--color-light--2);
+    font-weight: 400;
+    line-height: 1.6;
+    height: 100vh;
+    overscroll-behavior-y: none;
 
-  background-color: #fff;
-  padding: 2.5rem;
+    background-color: #fff;
+    padding: 2.5rem;
 }
 
 /* SIDEBAR */
 .sidebar {
-  /* flex-basis: 50rem; */
-  background-color: var(--color-dark--1);
-  padding: 3rem 5rem 4rem 5rem;
-  display: flex;
-  flex-direction: column;
+    /* flex-basis: 50rem; */
+    background-color: var(--color-dark--1);
+    padding: 3rem 5rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .workouts {
-  list-style: none;
-  height: 77vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
+    list-style: none;
+    height: 77vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .workouts::-webkit-scrollbar {
-  width: 0;
+    width: 0;
 }
 
 .workout {
-  background-color: var(--color-dark--2);
-  border-radius: 5px;
-  padding: 1.5rem 2.25rem;
-  margin-bottom: 1.75rem;
-  cursor: pointer;
+    background-color: var(--color-dark--2);
+    border-radius: 5px;
+    padding: 1.5rem 2.25rem;
+    margin-bottom: 1.75rem;
+    cursor: pointer;
 
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 0.75rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0.75rem 1.5rem;
 }
 
 .form.hidden {
-  transform: translateY(-30rem);
-  height: 0;
-  padding: 0 2.25rem;
-  margin-bottom: 0;
-  opacity: 0;
+    transform: translateY(-30rem);
+    height: 0;
+    padding: 0 2.25rem;
+    margin-bottom: 0;
+    opacity: 0;
 }
 
 /* Container */
 .container {
-  display: flex;
-  flex-direction: row;
-  /* height: 200px; */
-  background-color: #00c46a;
-  height: 100vh;
+    display: flex;
+    flex-direction: row;
+    /* height: 200px; */
+    background-color: #00c46a;
+    height: 100vh;
 }
+
 /* Container left */
 .container-left {
-  flex: 1;
-  background-color: #c4004b;
+    flex: 1;
+    background-color: #c4004b;
 }
+
 /* Container right*/
 .container-right {
-  flex: 3;
-  background-color: #2a00c4;
-  display: flex;
-  flex-direction: column;
+    flex: 3;
+    background-color: #2a00c4;
+    display: flex;
+    flex-direction: column;
 }
 
 /* MAP */
 #map {
-  flex: 1;
-  background-color: red;
-  height: fit-content;
-  background-color: var(--color-light--1);
+    flex: 1;
+    background-color: red;
+    height: fit-content;
+    background-color: var(--color-light--1);
 }
 
 /* .map-restricted{
@@ -117,183 +119,226 @@ body {
    */
 /* Popup width is defined in JS using options */
 .leaflet-popup .leaflet-popup-content-wrapper {
-  background-color: var(--color-dark--1);
-  color: var(--color-light--2);
-  border-radius: 5px;
-  padding-right: 0.6rem;
+    background-color: var(--color-dark--1);
+    color: var(--color-light--2);
+    border-radius: 5px;
+    padding-right: 0.6rem;
 }
 
 .leaflet-popup .leaflet-popup-content {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .leaflet-popup .leaflet-popup-tip {
-  background-color: var(--color-dark--1);
+    background-color: var(--color-dark--1);
 }
 
 .running-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid var(--color-brand--2);
+    border-left: 5px solid var(--color-brand--2);
 }
+
 .cycling-popup .leaflet-popup-content-wrapper {
-  border-left: 5px solid var(--color-brand--1);
+    border-left: 5px solid var(--color-brand--1);
 }
 
 /* Form related csss */
 .form {
-  display: flex;
-  background-color: var(--color-dark--2);
-  border-radius: 5px;
-  padding: 1.5rem 2.75rem;
-  margin-bottom: 1.75rem;
+    display: flex;
+    background-color: var(--color-dark--2);
+    border-radius: 5px;
+    padding: 1.5rem 2.75rem;
+    margin-bottom: 1.75rem;
 
-  /* display: grid; */
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem 2.5rem;
+    /* display: grid; */
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 2.5rem;
 
-  /* Match height and activity boxes */
-  height: 30.25rem;
-  transition: all 0.5s, transform 1ms;
+    /* Match height and activity boxes */
+    height: 30.25rem;
+    transition: all 0.5s, transform 1ms;
 }
 
 .form-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #00c46a;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #00c46a;
 }
 
 .form-info-selector {
-  flex: 1;
-  background-color: #8600c4;
+    flex: 1;
+    background-color: #8600c4;
 }
 
 .form-info-container {
-  flex: 3;
-  background-color: #c40083;
+    flex: 3;
+    background-color: #c40083;
 }
 
 .form-info-confirmation {
-  flex: 1;
-  background-color: #38c400;
+    flex: 1;
+    background-color: #38c400;
 }
 
 .form-main-input {
-  display: flex;
-  justify-content: center;
-  background-color: #c45800;
+    display: flex;
+    justify-content: center;
+    background-color: #c45800;
 }
 
 .form-btn {
-  /* f */
+    /* f */
 }
 
 .poke-img-containter {
-  display: flex;
-  justify-content: center;
-  background-color: #00c46a;
+    display: flex;
+    justify-content: center;
+    background-color: #00c46a;
 }
 
 .poke-img {
-  max-height: 200px;
-  max-width: 150px;
-  padding: 5px;
-  background-color: #2a00c4;
+    max-height: 200px;
+    max-width: 150px;
+    padding: 5px;
+    background-color: #2a00c4;
 }
 
 .logo-img {
-  height: 4rem;
-  align-self: center;
-  margin-bottom: 4rem;
+    height: 4rem;
+    align-self: center;
+    margin-bottom: 4rem;
 }
 
 /* Pokemon selection related */
 .form-info-selector {
-  display: flex;
-  padding: 2px;
-  justify-content: space-between;
+    display: flex;
+    padding: 2px;
+    justify-content: space-between;
 }
 
 .form-info-selector-label {
-  flex: 1;
-  font-size: 1.5rem;
+    flex: 1;
+    font-size: 1.5rem;
 }
+
 .form-info-selector-label-value {
-  flex: 3;
+    flex: 3;
 }
 
 .common-label-value {
-  padding: 10px;
+    padding: 10px;
 }
 
 .form-type-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #3fdc71;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #3fdc71;
 }
 
 .form-type-info {
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #031725;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #031725;
 }
 
 .form-type-label {
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #1879be;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #1879be;
 }
 
 .form-identifier-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: #b09797;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #b09797;
 }
 
 .form-identifier-number {
-  padding-right: 5px;
-  font-size: 1.5rem;
-  background-color: #d63737;
+    padding-right: 5px;
+    font-size: 1.5rem;
+    background-color: #d63737;
 }
 
 .form-identifier-name {
-  padding-left: 10px;
-  padding-right: 10px;
-  font-weight: bolder;
-  font-size: 1.5rem;
-  background-color: #312e2e;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    background-color: #312e2e;
 }
 
 .form-detail-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-detail-label-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: #1400c4;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #1400c4;
 }
 
 /*Pokemon type base colours*/
 .type-grass-popup .leaflet-popup-content-wrapper {
-  border-left: 30px solid var(--color-type-grass);
+    border-left: 30px solid var(--color-type-grass);
 }
 
 .type-fire-popup .leaflet-popup-content-wrapper {
-  border-left: 30px solid var(--color-type-fire);
+    border-left: 30px solid var(--color-type-fire);
 }
 
 .type-water-popup .leaflet-popup-content-wrapper {
-  border-left: 30px solid var(--color-type-water);
+    border-left: 30px solid var(--color-type-water);
 }
 
 .type-ghost-popup .leaflet-popup-content-wrapper {
-  border-left: 30px solid var(--color-type-ghost);
+    border-left: 30px solid var(--color-type-ghost);
 }
 
 .type-electric-popup .leaflet-popup-content-wrapper {
-  border-left: 30px solid var(--color-type-electric);
+    border-left: 30px solid var(--color-type-electric);
 }
+
+.pokemon-data {
+    /*background-color: var(--color-dark--2);*/
+    border-radius: 5px;
+    padding: 5px 5px;
+    margin-bottom: 1.75rem;
+    cursor: pointer;
+    background-color: #8600c4;
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
+    /*gap: 0.75rem 1.5rem;*/
+}
+
+.data-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.pokemon-name {
+    flex: 2;
+    background-color: #733fdc
+}
+
+.details {
+    flex: 1;
+    display: flex;
+    background-color: #3fdc71;
+}
+
+.locator {
+    flex: 1;
+    display: flex;
+    background-color: red;
+}
+
+.box-item {
+    padding: 10px;
+}
+
+
+
