@@ -6,6 +6,7 @@ import {pokemonDataMap} from "./pokemon-data.js";
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const form = document.querySelector(".form");
+const pokemonListContainer = document.querySelector(".pokemon-list-container");
 const containerWorkouts = document.querySelector(".workouts");
 const inputType = document.querySelector(".form__input--type");
 const inputDistance = document.querySelector(".form__input--distance");
@@ -24,7 +25,7 @@ const popupContent = "Vihanga";
 
 class PokemonLocator {
     date = new Date();
-    id = (new Date().getUTCMilliseconds() + "").slice(-10);
+    id = (new Date().getUTCMilliseconds() + "").slice(-10)+Math.random().toString(36);
     type;
     pokemonDetails;
 
@@ -56,12 +57,14 @@ class PokemonLocator {
 class App {
     #map;
     #mapEvent;
+    #mapZoomLevel =18;
     #pokemonLocations = [];
 
     constructor() {
         this._getPosition();
         formInput.addEventListener("change", this._listenFormInput.bind(this));
         form.addEventListener("submit", this._newFoundInformation.bind(this));
+        pokemonListContainer.addEventListener("click", this._moveToMarker.bind(this))
     }
 
     _getPosition() {
@@ -83,7 +86,7 @@ class App {
         console.log(location);
         console.log(this);
         const coords = [latitude, longitude];
-        this.#map = L.map("map").setView(coords, 18);
+        this.#map = L.map("map").setView(coords, this.#mapZoomLevel);
 
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution:
@@ -172,7 +175,10 @@ class App {
         const html = `
         <li class="pokemon-data type-${pokemonLocator.type.toLowerCase()}-data" data-id="${pokemonLocator.id}">
         <div class="data-box box-item">
-                   <div class="pokemon-name">${pokemonDetail.pokemonName}</div>
+                   <div class="pokemon-name box-item">
+                        <span>${pokemonDetail.pokemonName}</span>
+                        <span class="type-emjoi">${getTypeEmoji(pokemonDetail.type)}</span>
+                   </div>
                    <div class="details box-item">
                         <span>pokedex Id:</span>
                         <span>${pokemonDetail.id}</span>
@@ -198,6 +204,23 @@ class App {
         const html2 = `<div>${pokemonLocator.type}</div>`
         form.insertAdjacentHTML('afterend', html);
     }
+
+    _moveToMarker(e) {
+        const pokemonMarkerEl = e.target.closest(".pokemon-data");
+        console.log(pokemonMarkerEl);
+        if (!pokemonMarkerEl) return;
+
+        const pokemonLocation = this.#pokemonLocations
+            .find((locationDetails) => locationDetails.id === pokemonMarkerEl.dataset.id);
+
+        console.log(pokemonLocation);
+        this.#map.setView(pokemonLocation.coordinates,this.#mapZoomLevel,{
+            animate:true,
+            pan:{
+                duration:1
+            }
+        })
+    }
 }
 
 const getOption = (pokeIndex, pokemonName) => {
@@ -214,8 +237,28 @@ const setUpDropDownOptions = () => {
 };
 setUpDropDownOptions();
 
+const getTypeEmoji =(pokemonType)=>{
+    const type = pokemonType.toLowerCase();
+    if(type ==='grass'){
+        return '🍃🍃';
+    }
+    if(type === 'fire'){
+        return '🔥🔥'
+    }
+    if(type === 'water'){
+        return '💧💧'
+    }
+    if(type === 'ghost'){
+        return '👻👻'
+    }
+    if(type === 'electric'){
+        return '⚡⚡'
+    }
+    return 'Unknown';
+}
+
 const getMarker = (pokemonLocation, bindingingEl, pokemon) => {
-    const markerInfo = ` #${pokemon.id}  ${pokemon.pokemonName}`;
+    const markerInfo = ` #${pokemon.id}  ${pokemon.pokemonName}  ${getTypeEmoji(pokemon.type)}`;
     L.marker(pokemonLocation.coordinates)
         .addTo(bindingingEl)
         .bindPopup(getPopupObj(pokemon.type))
@@ -227,7 +270,8 @@ function getPopupObj(pokemonType) {
     return L.popup({
         maxWidth: 500,
         minWidth: 300,
-        autoclose: false,
+        autoClose: false,
+        closeButton:false,
         maxHeight: 800,
         closeOnClick: false,
         className: `type-${pokemonType.toLowerCase()}-popup`,
